@@ -1,12 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
+import app from '../firebase.config';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const getFormInfo = (event)=>{
         event.preventDefault();
         const email = event.target.email.value;
         const password = event.target.password.value;
-        console.log(email, password);
+        const auth = getAuth(app);
+        signInWithEmailAndPassword(auth, email, password)
+        .then(user =>{
+            toast.success('Login successful!')
+        })
+        .catch(error=>{
+            toast.error(`error: ${error.message}`)
+        })
+        event.target.reset()
     }
     return (
         <div className='w-1/5 mx-auto my-10'>
