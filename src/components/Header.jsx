@@ -1,14 +1,19 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../providers/UserContext';
 
 const Header = () => {
+    const {user, logOut} = useContext(AuthContext)
     return (
-        <div className='w-full'>
-            <nav className='w-1/2 flex justify-center mx-auto gap-10 text-base font-bold py-5 border-b'>
+        <div className='w-full flex justify-around text-base font-bold py-5 border-b'>
+            <nav className=' flex justify-center  gap-10 '>
                 <NavLink to='/'>Home</NavLink>
                 <NavLink to='/login'>Login</NavLink>
                 <NavLink to='/registration'>Registration</NavLink>
             </nav>
+            {
+                user ? <div className='flex gap-5'><h1>{user.email}</h1> <button onClick={logOut}>Sing out</button></div> : <div><Link to='/login'>Sing in</Link></div>
+            }
         </div>
     );
 };

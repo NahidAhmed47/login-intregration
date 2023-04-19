@@ -1,26 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   GoogleAuthProvider,
-  createUserWithEmailAndPassword,
   getAuth,
   signInWithPopup,
 } from "firebase/auth";
 import app from "../firebase.config";
 import toast from "react-hot-toast";
+import { AuthContext } from "../providers/UserContext";
 const Registration = () => {
   const [error, setError] = useState("");
+  const {user, userRegistration} = useContext(AuthContext)
   const getFormInfo = (event) => {
     setError("");
     event.preventDefault();
     const email = event.target.email.value;
     const password = event.target.password.value;
-    const auth = getAuth(app);
     if (!/(?=.*[A-Z])/.test(password) && password !== "") {
       setError("Please enter at least 2 uppercase!");
       return;
     }
-    createUserWithEmailAndPassword(auth, email, password)
+    userRegistration(email, password)
       .then((user) => {
         toast.success("Registration successful!");
       })

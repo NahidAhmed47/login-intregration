@@ -6,6 +6,7 @@ import Main from './layouts/Main'
 import Home from './components/Home'
 import Login from './components/Login'
 import Registration from './components/Registration'
+import UserContext from './providers/UserContext'
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <UserContext>
+      <RouterProvider router={router}></RouterProvider>
+    </UserContext>
   </React.StrictMode>,
 )
