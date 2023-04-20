@@ -10,6 +10,7 @@ const Header = () => {
                 <NavLink to='/'>Home</NavLink>
                 <NavLink to='/login'>Login</NavLink>
                 <NavLink to='/registration'>Registration</NavLink>
+                {user && <NavLink to='/profile'>Profile</NavLink>}
             </nav>
             {
                 user ? <div className='flex gap-5'><h1>{user.email}</h1> <button onClick={logOut}>Sing out</button></div> : <div><Link to='/login'>Sing in</Link></div>

@@ -8,12 +8,14 @@ const auth = getAuth(app);
 
 const UserContext = ({children}) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
     const userRegistration = (email, password)=>{
     return createUserWithEmailAndPassword(auth, email, password);
     }
     useEffect(()=>{
         const unSubscribe = onAuthStateChanged(auth, currentUser =>{
             setUser(currentUser)
+            setLoading(false)
         })
         return()=>{
             unSubscribe();
@@ -30,6 +32,7 @@ const UserContext = ({children}) => {
     }
     const useInfo = {
         user, 
+        loading,
         userRegistration,
         logOut
     }
